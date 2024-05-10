@@ -98,7 +98,7 @@ class AuthPreferencesPage extends Page implements HasForms
         $new = $this->form->getState();
 
         $data = collect(array_diff_multidimensional($new, $original))
-            ->filter(fn (mixed $value) => $value !== null)
+            ->filter(fn (mixed $value, string $key) => $value !== ($original[$key] ?? null))
             ->mapWithKeys(fn (mixed $value, string $key): array => [
                 $key => is_array($value)
                     ? array_merge($original[$key] ?? [], $value)
