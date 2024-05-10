@@ -48,8 +48,8 @@ class AuthPreferencesPage extends Page implements HasForms
     protected function fillForm(): void
     {
         $data = [
-            ...AuthPreferences::get(),
             ...(AuthPreferencesPlugin::get()->getPreset()?->data() ?? []),
+            ...AuthPreferences::get(),
         ];
 
         $this->form->fill($data);
