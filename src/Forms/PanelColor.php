@@ -36,11 +36,12 @@ class PanelColor extends Forms\Components\Tabs
             ->schema([
                 Forms\Components\Select::make($color)
                     ->required()
+                    ->preload()
                     ->formatStateUsing(fn () => $namedColors[$color] ?? null)
                     ->dehydrateStateUsing(fn (string $state) => $allColors[$state])
                     ->hiddenLabel()
                     ->allowHtml()
-                    ->options(fn () => Arr::mapWithKeys($allColors, fn (array $shades, string $color) => [
+                    ->options(Arr::mapWithKeys($allColors, fn (array $shades, string $color) => [
                         $color => Blade::render($this->template(), [
                             'color' => $color,
                             'shades' => $shades,

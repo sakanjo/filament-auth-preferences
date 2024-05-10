@@ -57,7 +57,8 @@ class PanelPreset extends Preset
                 ->minValue(50),
 
             Forms\Components\Select::make('maxContentWidth')
-                ->options(fn () => Arr::mapWithKeys(MaxWidth::cases(), fn (MaxWidth $maxWidth) => [
+                ->preload()
+                ->options(Arr::mapWithKeys(MaxWidth::cases(), fn (MaxWidth $maxWidth) => [
                     $maxWidth->value => (string) str($maxWidth->name)->headline(),
                 ])),
 
