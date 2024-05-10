@@ -37,6 +37,7 @@ class PanelColor extends Forms\Components\Tabs
                 Forms\Components\Select::make($color)
                     ->required()
                     ->preload()
+                    ->searchable()
                     ->formatStateUsing(fn () => $namedColors[$color] ?? null)
                     ->dehydrateStateUsing(fn (string $state) => $allColors[$state])
                     ->hiddenLabel()

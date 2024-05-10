@@ -14,6 +14,7 @@ class PanelFont extends Forms\Components\Select
         $this
             ->allowHtml()
             ->preload()
+            ->searchable()
             ->options(Arr::mapWithKeys($this->getFonts(), fn (string $value, string $key) => [
                 $key => "<span style='font-family: $key;'>$value</span>",
             ]));

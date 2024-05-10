@@ -58,6 +58,7 @@ class PanelPreset extends Preset
 
             Forms\Components\Select::make('maxContentWidth')
                 ->preload()
+                ->searchable()
                 ->options(Arr::mapWithKeys(MaxWidth::cases(), fn (MaxWidth $maxWidth) => [
                     $maxWidth->value => (string) str($maxWidth->name)->headline(),
                 ])),
