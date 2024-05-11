@@ -152,7 +152,7 @@ class TablePreset extends Preset
             Forms\Components\Select::make('filtersFormWidth')
                 ->preload()
                 ->searchable()
-                ->options(get_enum_options(RecordCheckboxPosition::class)),
+                ->options(get_enum_options(MaxWidth::class)),
 
             Forms\Components\Select::make('filtersLayout')
                 ->preload()
