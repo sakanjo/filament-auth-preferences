@@ -6,10 +6,11 @@ use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Support\Facades\FilamentColor;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use SaKanjo\FilamentAuthPreferences\Forms\PanelColor;
 use SaKanjo\FilamentAuthPreferences\Forms\PanelFont;
+
+use function SaKanjo\FilamentAuthPreferences\get_enum_options;
 
 class PanelPreset extends Preset
 {
@@ -59,9 +60,7 @@ class PanelPreset extends Preset
             Forms\Components\Select::make('maxContentWidth')
                 ->preload()
                 ->searchable()
-                ->options(Arr::mapWithKeys(MaxWidth::cases(), fn (MaxWidth $maxWidth) => [
-                    $maxWidth->value => (string) str($maxWidth->name)->headline(),
-                ])),
+                ->options(get_enum_options(MaxWidth::class)),
 
             Forms\Components\TextInput::make('databaseNotificationsPolling')
                 ->suffix('s')

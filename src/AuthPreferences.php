@@ -25,7 +25,7 @@ class AuthPreferences
     public function apply(): void
     {
         AuthPreferencesPlugin::get()
-            ->getPreset()?->apply($this->get());
+            ->getPreset()->apply($this->get());
     }
 
     public function get(?string $key = null, mixed $default = null): mixed

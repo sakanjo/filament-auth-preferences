@@ -17,7 +17,7 @@ trait HasPreset
         return $this;
     }
 
-    public function getPreset(): ?Preset
+    public function getPreset(): Preset
     {
         return $this->evaluate($this->preset) ??
             PanelPreset::make();

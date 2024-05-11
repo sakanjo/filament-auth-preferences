@@ -51,7 +51,18 @@ public function panel(Panel $panel): Panel
 
 ## Presets
 
-The package comes with a default preset that you can use out of the box. You can also create your own custom preset by extending the `SaKanjo\FilamentAuthPreferences\Presets\Preset` class.
+Presets are the core of the plugin, allows you to create different preferences with no limit.
+
+### Default presets
+
+The package comes with a default preset that you can use out of the box.
+
+- `PanelPreset`
+- `TablePreset`
+
+### Creating custom preset
+
+You can create your own custom preset by extending the `SaKanjo\FilamentAuthPreferences\Presets\Preset` class.
 
 ```php
 <?php
