@@ -14,6 +14,7 @@ use Filament\Tables\Table;
 use Illuminate\Support\Str;
 use SaKanjo\FilamentAuthPreferences\Facades\AuthPreferences;
 
+use function SaKanjo\FilamentAuthPreferences\get_enum_case;
 use function SaKanjo\FilamentAuthPreferences\get_enum_options;
 
 class TablePreset extends Preset
@@ -231,21 +232,21 @@ class TablePreset extends Preset
                 'defaultSortDirection' => $table->defaultSort(null, $value),
                 'columnToggleFormColumns' => $table->columnToggleFormColumns($value),
                 'columnToggleFormMaxHeight' => $table->columnToggleFormMaxHeight($value.'px'),
-                'columnToggleFormWidth' => $table->columnToggleFormWidth($value),
+                'columnToggleFormWidth' => $table->columnToggleFormWidth(get_enum_case(MaxWidth::class, $value)),
                 'actionsColumnLabel' => $table->actionsColumnLabel($value),
-                'actionsAlignment' => $table->actionsAlignment($value),
-                'actionsPosition' => $table->actionsPosition(ActionsPosition::{$value}),
-                'recordCheckboxPosition' => $table->recordCheckboxPosition(RecordCheckboxPosition::{$value}),
+                'actionsAlignment' => $table->actionsAlignment(get_enum_case(Alignment::class, $value)),
+                'actionsPosition' => $table->actionsPosition(get_enum_case(ActionsPosition::class, $value)),
+                'recordCheckboxPosition' => $table->recordCheckboxPosition(get_enum_case(RecordCheckboxPosition::class, $value)),
                 'emptyStateDescription' => $table->emptyStateDescription($value),
                 'emptyStateHeading' => $table->emptyStateHeading($value),
                 'emptyStateIcon' => $table->emptyStateIcon($value),
                 'filtersFormColumns' => $table->filtersFormColumns($value),
                 'filtersFormMaxHeight' => $table->filtersFormMaxHeight($value.'px'),
-                'filtersFormWidth' => $table->filtersFormWidth($value),
-                'filtersLayout' => $table->filtersLayout(FiltersLayout::{$value}),
+                'filtersFormWidth' => $table->filtersFormWidth(get_enum_case(MaxWidth::class, $value)),
+                'filtersLayout' => $table->filtersLayout(get_enum_case(FiltersLayout::class, $value)),
                 'description' => $table->description($value),
                 'heading' => $table->heading($value),
-                'headerActionsPosition' => $table->headerActionsPosition(HeaderActionsPosition::{$value}),
+                'headerActionsPosition' => $table->headerActionsPosition(get_enum_case(HeaderActionsPosition::class, $value)),
                 'striped' => $table->striped($value),
                 'deferLoading' => $table->deferLoading($value),
                 'groupingSettingsInDropdownOnDesktop' => $table->groupingSettingsInDropdownOnDesktop($value),

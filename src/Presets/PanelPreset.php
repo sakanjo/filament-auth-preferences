@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use SaKanjo\FilamentAuthPreferences\Forms\PanelColor;
 use SaKanjo\FilamentAuthPreferences\Forms\PanelFont;
 
+use function SaKanjo\FilamentAuthPreferences\get_enum_case;
 use function SaKanjo\FilamentAuthPreferences\get_enum_options;
 
 class PanelPreset extends Preset
@@ -129,7 +130,7 @@ class PanelPreset extends Preset
                 'font' => $panel->font($value),
                 'globalSearch' => $panel->globalSearch($value),
                 'globalSearchDebounce' => $panel->globalSearchDebounce($value.'ms'),
-                'maxContentWidth' => $panel->maxContentWidth($value),
+                'maxContentWidth' => $panel->maxContentWidth(get_enum_case(MaxWidth::class, $value)),
                 'navigation' => $panel->navigation($value),
                 'databaseNotifications' => $panel->databaseNotifications($value),
                 'databaseNotificationsPolling' => $panel->databaseNotificationsPolling($value.'s'),
