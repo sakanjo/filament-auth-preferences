@@ -15,6 +15,7 @@ class FilamentAuthPreferencesServiceProvider extends PackageServiceProvider
         $package
             ->name(static::$name)
             ->hasConfigFile()
+            ->hasViews()
             ->hasTranslations()
             ->hasInstallCommand(fn (InstallCommand $command) => $command
                 ->publishConfigFile()

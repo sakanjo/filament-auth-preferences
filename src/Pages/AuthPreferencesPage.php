@@ -21,7 +21,7 @@ class AuthPreferencesPage extends Page implements HasForms
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static string $view = 'livewire.auth-preferences.index';
+    protected static string $view = 'filament-auth-preferences::index';
 
     public function getTitle(): string|Htmlable
     {
