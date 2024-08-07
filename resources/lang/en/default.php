@@ -2,5 +2,4 @@
 
 return [
     'title' => 'Preferences',
-    'heading' => 'Preferences',
 ];

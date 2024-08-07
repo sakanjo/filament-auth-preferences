@@ -32,7 +32,7 @@ class PanelColor extends Forms\Components\Tabs
 
         return Arr::map($filamentColors, fn (array $shades, string $color) => Forms\Components\Tabs\Tab::make(Str::headline($color))
             ->badgeColor($color)
-            ->badge(Str::headline($namedColors[$color] ?? null))
+            ->badge(__(Str::headline($namedColors[$color] ?? null)))
             ->schema([
                 Forms\Components\Select::make($color)
                     ->required()
@@ -44,7 +44,7 @@ class PanelColor extends Forms\Components\Tabs
                     ->allowHtml()
                     ->options(Arr::mapWithKeys($allColors, fn (array $shades, string $color) => [
                         $color => Blade::render($this->template(), [
-                            'color' => $color,
+                            'color' => __($color),
                             'shades' => $shades,
                         ]),
                     ])),
@@ -57,7 +57,7 @@ class PanelColor extends Forms\Components\Tabs
         return <<<'BLADE'
             <span class='flex items-center gap-x-4'>
                 <span class='rounded-full size-4' style='background-color: rgb({{ $shades[600] }});'></span>
-                <span>{{ Str::headline($color) }}</span>
+                <span>{{ __(Str::headline($color)) }}</span>
             </span>
         BLADE;
     }

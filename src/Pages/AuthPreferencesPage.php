@@ -28,11 +28,6 @@ class AuthPreferencesPage extends Page implements HasForms
         return __('filament-auth-preferences::default.title');
     }
 
-    public function getHeading(): string|Htmlable
-    {
-        return __('filament-auth-preferences::default.heading');
-    }
-
     public static function getSlug(): string
     {
         return config('filament-auth-preferences.slug');
