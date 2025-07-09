@@ -6,6 +6,7 @@ use Filament\Contracts\Plugin;
 use Filament\Events\ServingFilament;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use SaKanjo\FilamentAuthPreferences\Facades\AuthPreferences;
 
@@ -40,7 +41,7 @@ class AuthPreferencesPlugin implements Plugin
         }
 
         Event::listen(ServingFilament::class, function (): void {
-            if (auth()->check()) {
+            if (Auth::check()) {
                 AuthPreferences::apply();
             }
         });

@@ -54,13 +54,16 @@ class AuthPreferencesPage extends Page implements HasForms
     {
         return Forms\Components\Actions::make([
             Forms\Components\Actions\Action::make('save')
+                ->translateLabel()
                 ->submit('edit'),
 
             Forms\Components\Actions\Action::make('reset')
+                ->translateLabel()
                 ->color('gray')
                 ->action($this->fillForm(...)),
 
             Forms\Components\Actions\Action::make('clear')
+                ->translateLabel()
                 ->disabled(fn () => empty(AuthPreferences::get()))
                 ->color('danger')
                 ->action(function () {
