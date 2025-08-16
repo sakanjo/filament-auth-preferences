@@ -26,7 +26,7 @@ class PanelFont extends Forms\Components\Select
             'sans-serif' => 'Sans-serif',
             'serif' => 'Serif',
             'mono' => 'Monospace',
-            'Inter' => 'Inter',
+            'Inter Variable' => 'Inter Variable',
         ];
     }
 }

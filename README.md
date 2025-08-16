@@ -85,7 +85,7 @@ class MyPreset extends Preset
         ];
     }
 
-    public static function schema(): array
+    public static function components(): array
     {
         return [
             Forms\Components\TextInput::make('brandName'),

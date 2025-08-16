@@ -4,11 +4,12 @@ namespace SaKanjo\FilamentAuthPreferences\Presets;
 
 use Filament\Forms;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas;
 use Filament\Support\Enums\Alignment;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Filament\Tables\Actions\HeaderActionsPosition;
-use Filament\Tables\Enums\ActionsPosition;
 use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Enums\RecordActionsPosition;
 use Filament\Tables\Enums\RecordCheckboxPosition;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
@@ -32,12 +33,12 @@ class TablePreset extends Preset
             'searchDebounce' => Str::before($table->getSearchDebounce(), 'ms'),
             'searchPlaceholder' => $table->getSearchPlaceholder(),
             'defaultSortDirection' => $table->getDefaultSortDirection(),
-            'columnToggleFormColumns' => $table->getColumnToggleFormColumns(),
-            'columnToggleFormMaxHeight' => Str::before($table->getColumnToggleFormMaxHeight(), 'px'),
-            'columnToggleFormWidth' => $table->getColumnToggleFormWidth(),
-            'actionsColumnLabel' => $table->getActionsColumnLabel(),
-            'actionsAlignment' => $table->getActionsAlignment(),
-            'actionsPosition' => $table->getActionsPosition()->name,
+            'columnManagerColumns' => $table->getColumnManagerColumns(),
+            'columnManagerMaxHeight' => Str::before($table->getColumnManagerMaxHeight(), 'px'),
+            'columnManagerWidth' => $table->getColumnManagerWidth(),
+            'recordActionsColumnLabel' => $table->getRecordActionsColumnLabel(),
+            'recordActionsAlignment' => $table->getRecordActionsAlignment(),
+            'recordActionsPosition' => $table->getRecordActionsPosition()->name,
             'recordCheckboxPosition' => $table->getRecordCheckboxPosition()->name,
             'emptyStateDescription' => $table->getEmptyStateDescription(),
             'emptyStateHeading' => null,
@@ -70,7 +71,7 @@ class TablePreset extends Preset
         ];
     }
 
-    public static function schema(): array
+    public static function components(): array
     {
         return [
             Forms\Components\Select::make('defaultPaginationPageOption')
@@ -99,33 +100,33 @@ class TablePreset extends Preset
             Forms\Components\Select::make('defaultSortDirection')
                 ->options(static::combineArray(['asc', 'desc'])),
 
-            Forms\Components\Select::make('columnToggleFormColumns')
+            Forms\Components\Select::make('columnManagerColumns')
                 ->preload()
                 ->searchable()
                 ->options(static::combineArray([1, 2, 3, 4])),
 
-            Forms\Components\TextInput::make('columnToggleFormMaxHeight')
+            Forms\Components\TextInput::make('columnManagerMaxHeight')
                 ->suffix('px')
                 ->numeric()
                 ->minValue(50),
 
-            Forms\Components\Select::make('columnToggleFormWidth')
+            Forms\Components\Select::make('columnManagerWidth')
                 ->preload()
                 ->searchable()
-                ->options(get_enum_options(MaxWidth::class)),
+                ->options(get_enum_options(Width::class)),
 
-            Forms\Components\TextInput::make('actionsColumnLabel')
+            Forms\Components\TextInput::make('recordActionsColumnLabel')
                 ->maxLength(255),
 
-            Forms\Components\Select::make('actionsAlignment')
+            Forms\Components\Select::make('recordActionsAlignment')
                 ->preload()
                 ->searchable()
                 ->options(get_enum_options(Alignment::class)),
 
-            Forms\Components\Select::make('actionsPosition')
+            Forms\Components\Select::make('recordActionsPosition')
                 ->preload()
                 ->searchable()
-                ->options(get_enum_options(ActionsPosition::class)),
+                ->options(get_enum_options(RecordActionsPosition::class)),
 
             Forms\Components\Select::make('recordCheckboxPosition')
                 ->preload()
@@ -153,7 +154,7 @@ class TablePreset extends Preset
             Forms\Components\Select::make('filtersFormWidth')
                 ->preload()
                 ->searchable()
-                ->options(get_enum_options(MaxWidth::class)),
+                ->options(get_enum_options(Width::class)),
 
             Forms\Components\Select::make('filtersLayout')
                 ->preload()
@@ -171,8 +172,8 @@ class TablePreset extends Preset
                 ->searchable()
                 ->options(get_enum_options(HeaderActionsPosition::class)),
 
-            Forms\Components\Fieldset::make('Options')
-                ->schema(static::options()),
+            Schemas\Components\Fieldset::make('Options')
+                ->components(static::options()),
         ];
     }
 
@@ -230,19 +231,19 @@ class TablePreset extends Preset
                 'searchDebounce' => $table->searchDebounce($value),
                 'searchPlaceholder' => $table->searchPlaceholder($value),
                 'defaultSortDirection' => $table->defaultSort(null, $value),
-                'columnToggleFormColumns' => $table->columnToggleFormColumns($value),
-                'columnToggleFormMaxHeight' => $table->columnToggleFormMaxHeight($value.'px'),
-                'columnToggleFormWidth' => $table->columnToggleFormWidth(get_enum_case(MaxWidth::class, $value)),
-                'actionsColumnLabel' => $table->actionsColumnLabel($value),
-                'actionsAlignment' => $table->actionsAlignment(get_enum_case(Alignment::class, $value)),
-                'actionsPosition' => $table->actionsPosition(get_enum_case(ActionsPosition::class, $value)),
+                'columnManagerColumns' => $table->columnManagerColumns($value),
+                'columnManagerMaxHeight' => $table->columnManagerMaxHeight($value.'px'),
+                'columnManagerWidth' => $table->columnManagerWidth(get_enum_case(Width::class, $value)),
+                'recordActionsColumnLabel' => $table->recordActionsColumnLabel($value),
+                'recordActionsAlignment' => $table->recordActionsAlignment($value),
+                'recordActionsPosition' => $table->recordActionsPosition(get_enum_case(RecordActionsPosition::class, $value)),
                 'recordCheckboxPosition' => $table->recordCheckboxPosition(get_enum_case(RecordCheckboxPosition::class, $value)),
                 'emptyStateDescription' => $table->emptyStateDescription($value),
                 'emptyStateHeading' => $table->emptyStateHeading($value),
                 'emptyStateIcon' => $table->emptyStateIcon($value),
                 'filtersFormColumns' => $table->filtersFormColumns($value),
                 'filtersFormMaxHeight' => $table->filtersFormMaxHeight($value.'px'),
-                'filtersFormWidth' => $table->filtersFormWidth(get_enum_case(MaxWidth::class, $value)),
+                'filtersFormWidth' => $table->filtersFormWidth(get_enum_case(Width::class, $value)),
                 'filtersLayout' => $table->filtersLayout(get_enum_case(FiltersLayout::class, $value)),
                 'description' => $table->description($value),
                 'heading' => $table->heading($value),

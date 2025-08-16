@@ -11,7 +11,7 @@ abstract class Preset
 
     abstract public static function data(): array;
 
-    abstract public static function schema(): array;
+    abstract public static function components(): array;
 
     abstract public static function apply(array $data): void;
 }

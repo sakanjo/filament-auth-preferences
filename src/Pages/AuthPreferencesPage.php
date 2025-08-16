@@ -2,18 +2,20 @@
 
 namespace SaKanjo\FilamentAuthPreferences\Pages;
 
-use Filament\Forms;
+use Filament\Actions;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
-use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Panel;
+use Filament\Schemas;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 use SaKanjo\FilamentAuthPreferences\AuthPreferencesPlugin;
 use SaKanjo\FilamentAuthPreferences\Facades\AuthPreferences;
 
 /**
- * @property Form $form
+ * @property-read Schemas\Schema $form
  */
 class AuthPreferencesPage extends Page implements HasForms
 {
@@ -21,14 +23,14 @@ class AuthPreferencesPage extends Page implements HasForms
 
     protected static bool $shouldRegisterNavigation = false;
 
-    protected static string $view = 'filament-auth-preferences::index';
+    protected string $view = 'filament-auth-preferences::index';
 
     public function getTitle(): string|Htmlable
     {
         return __('filament-auth-preferences::default.title');
     }
 
-    public static function getSlug(): string
+    public static function getSlug(?Panel $panel = null): string
     {
         return config('filament-auth-preferences.slug');
     }
@@ -50,42 +52,41 @@ class AuthPreferencesPage extends Page implements HasForms
         $this->form->fill($data);
     }
 
-    protected function getSchemaActions(): Forms\Components\Actions
+    protected function getSchemaActions(): Schemas\Components\Actions
     {
-        return Forms\Components\Actions::make([
-            Forms\Components\Actions\Action::make('save')
+        return Schemas\Components\Actions::make([
+            Actions\Action::make('save')
                 ->translateLabel()
                 ->submit('edit'),
 
-            Forms\Components\Actions\Action::make('reset')
+            Actions\Action::make('reset')
                 ->translateLabel()
                 ->color('gray')
                 ->action($this->fillForm(...)),
 
-            Forms\Components\Actions\Action::make('clear')
+            Actions\Action::make('clear')
                 ->translateLabel()
                 ->disabled(fn () => empty(AuthPreferences::get()))
                 ->color('danger')
                 ->action(function () {
                     AuthPreferences::clear();
                     $this->reload();
-                })
-                ->extraAttributes([
-                    'class' => 'ml-auto',
-                ]),
+                }),
         ])
-            ->columnSpanFull();
+            ->columnSpan([
+                'default' => 'full',
+            ]);
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->statePath('data')
             ->columns([
                 'sm' => 2,
             ])
-            ->schema([
-                ...(AuthPreferencesPlugin::get()->getPreset()->schema()),
+            ->components([
+                ...(AuthPreferencesPlugin::get()->getPreset()->components()),
                 $this->getSchemaActions(),
             ]);
     }

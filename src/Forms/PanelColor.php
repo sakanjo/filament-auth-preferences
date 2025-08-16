@@ -3,13 +3,14 @@
 namespace SaKanjo\FilamentAuthPreferences\Forms;
 
 use Filament\Forms;
+use Filament\Schemas;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
 
-class PanelColor extends Forms\Components\Tabs
+class PanelColor extends Schemas\Components\Tabs
 {
     protected function setUp(): void
     {
@@ -18,7 +19,7 @@ class PanelColor extends Forms\Components\Tabs
         $this
             ->statePath('colors')
             ->columnSpanFull()
-            ->schema($this->getSchema(...));
+            ->components($this->getSchema(...));
     }
 
     private function getSchema(): array
@@ -30,7 +31,7 @@ class PanelColor extends Forms\Components\Tabs
             $color => array_search($shades, $allColors),
         ]);
 
-        return Arr::map($filamentColors, fn (array $shades, string $color) => Forms\Components\Tabs\Tab::make(Str::headline($color))
+        return Arr::map($filamentColors, fn (array $shades, string $color) => Schemas\Components\Tabs\Tab::make(Str::headline($color))
             ->badgeColor($color)
             ->badge(__(Str::headline($namedColors[$color] ?? null)))
             ->schema([

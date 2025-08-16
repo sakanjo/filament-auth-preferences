@@ -4,7 +4,8 @@ namespace SaKanjo\FilamentAuthPreferences\Presets;
 
 use Filament\Facades\Filament;
 use Filament\Forms;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Schemas;
+use Filament\Support\Enums\Width;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Support\Str;
 use SaKanjo\FilamentAuthPreferences\Forms\PanelColor;
@@ -44,7 +45,7 @@ class PanelPreset extends Preset
         ];
     }
 
-    public static function schema(): array
+    public static function components(): array
     {
         return [
             PanelColor::make(),
@@ -61,7 +62,7 @@ class PanelPreset extends Preset
             Forms\Components\Select::make('maxContentWidth')
                 ->preload()
                 ->searchable()
-                ->options(get_enum_options(MaxWidth::class)),
+                ->options(get_enum_options(Width::class)),
 
             Forms\Components\TextInput::make('databaseNotificationsPolling')
                 ->suffix('s')
@@ -80,8 +81,8 @@ class PanelPreset extends Preset
                 ->minValue(.5)
                 ->lt('sidebarWidth'),
 
-            Forms\Components\Fieldset::make('Options')
-                ->schema(static::options()),
+            Schemas\Components\Fieldset::make('Options')
+                ->components(static::options()),
         ];
     }
 
@@ -130,7 +131,7 @@ class PanelPreset extends Preset
                 'font' => $panel->font($value),
                 'globalSearch' => $panel->globalSearch($value),
                 'globalSearchDebounce' => $panel->globalSearchDebounce($value.'ms'),
-                'maxContentWidth' => $panel->maxContentWidth(get_enum_case(MaxWidth::class, $value)),
+                'maxContentWidth' => $panel->maxContentWidth(get_enum_case(Width::class, $value)),
                 'navigation' => $panel->navigation($value),
                 'databaseNotifications' => $panel->databaseNotifications($value),
                 'databaseNotificationsPolling' => $panel->databaseNotificationsPolling($value.'s'),
