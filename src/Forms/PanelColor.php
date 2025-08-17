@@ -18,7 +18,9 @@ class PanelColor extends Schemas\Components\Tabs
 
         $this
             ->statePath('colors')
-            ->columnSpanFull()
+            ->columnSpan([
+                'default' => 'full',
+            ])
             ->components($this->getSchema(...));
     }
 
