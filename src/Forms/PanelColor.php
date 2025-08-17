@@ -56,8 +56,8 @@ class PanelColor extends Schemas\Components\Tabs
     protected function template(): string
     {
         return <<<'BLADE'
-            <span class='flex items-center gap-x-4'>
-                <span class='rounded-full size-4' style='background-color: rgb({{ $shades[600] }});'></span>
+            <span class='flex items-center gap-x-2'>
+                <span class='rounded-md size-4' style='background-color: {{ $shades[600] }};'></span>
                 <span>{{ __(Str::headline($color)) }}</span>
             </span>
         BLADE;
