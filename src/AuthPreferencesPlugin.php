@@ -4,6 +4,7 @@ namespace SaKanjo\FilamentAuthPreferences;
 
 use Filament\Contracts\Plugin;
 use Filament\Events\ServingFilament;
+use Filament\Facades\Filament;
 use Filament\Panel;
 use Filament\Support\Concerns\EvaluatesClosures;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,7 @@ class AuthPreferencesPlugin implements Plugin
         }
 
         Event::listen(ServingFilament::class, function (): void {
-            if (Auth::check()) {
+            if (Auth::check() && Filament::hasPlugin($this->getId())) {
                 AuthPreferences::apply();
             }
         });
