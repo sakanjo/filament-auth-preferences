@@ -69,7 +69,8 @@ class AuthPreferencesPage extends Page implements HasForms
                 ->disabled(fn () => empty(AuthPreferences::get()))
                 ->color('danger')
                 ->action(function () {
-                    AuthPreferences::clear();
+                    AuthPreferences::set([]);
+
                     $this->reload();
                 }),
         ])
@@ -105,7 +106,7 @@ class AuthPreferencesPage extends Page implements HasForms
             ])
             ->toArray();
 
-        AuthPreferences::store($data);
+        AuthPreferences::set($data);
 
         Notification::make()
             ->success()

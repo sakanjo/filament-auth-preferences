@@ -10,7 +10,7 @@ trait HasPreset
 {
     protected Preset|Closure|null $preset = null;
 
-    public function preset(Preset|Closure $preset): static
+    public function preset(Preset|Closure|null $preset): static
     {
         $this->preset = $preset;
 
